@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+
+  dev:
+    image: learningfuze/lfz-code:latest
+    volumes:
+      - home_dev:/home/dev
+      - vscode_extensions:/home/dev/.vscode-server/extensions
+
+volumes:
+
+  home_dev:
+  vscode_extensions:
