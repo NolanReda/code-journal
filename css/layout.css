@@ -23,6 +23,10 @@
     max-width: 900px;
   }
 
+  header {
+    padding: 0 0.75rem;
+  }
+
   .column-full,
   .column-half {
     padding: 0 0.75rem;
