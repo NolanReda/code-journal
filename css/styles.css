@@ -2,10 +2,7 @@ body {
   max-width: 1000px;
   margin: auto;
   background-color: #f0f0f0;
-}
-
-.container {
-  max-width: 1000px;
+  font-family: sans-serif;
 }
 
 header {
@@ -19,13 +16,18 @@ h2 {
   margin-bottom: 0;
 }
 
-.img-box {
-  height: 29rem;
-  width: 29rem;
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  header {
+    width: 100%;
+  }
+
+  .end {
+    padding-right: 0;
+  }
 }
 
-.column-half {
-  flex-basis: 50%;
+.img-box {
+  width: 100%;
 }
 
 .notes {
@@ -57,27 +59,22 @@ button {
   margin-top: 5rem;
 }
 
-.marg-right-15 {
+/* .marg-right-15 {
   margin-right: 15rem;
-}
+} */
 
 label {
   font-size: x-large;
   font-weight: bold;
 }
 
-.pad-left-1 {
-  padding-left: 1rem;
-}
-
 .end {
   justify-content: end;
-  padding-right: 9rem;
   margin-bottom: 2rem;
 }
 
 input {
-  width: 20rem;
+  width: 100%;
   height: 2rem;
   border: solid 1px;
   border-color: #b6b6b6;
@@ -85,6 +82,7 @@ input {
 }
 
 textarea {
+  width: 100%;
   border: solid 1px;
   border-color: #b6b6b6;
   border-radius: 4px;

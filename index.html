@@ -28,13 +28,11 @@
             <img class="img-box shrink" id="img-box" src="images/placeholder-image-square.jpg" alt="placeholder">
           </div>
           <div class="column-half pad-top-5">
-            <div class="row">
-              <div>
-                <label class="marg-right-15" for="title">Title</label>
-              </div>
-              <div>
-                <input id="title" class="text" type="text" required>
-              </div>
+            <div>
+              <label class="marg-right-15" for="title">Title</label>
+            </div>
+            <div>
+              <input id="title" class="text" type="text" required>
             </div>
             <div class="row marg-top-5">
               <label class="marg-right-15" id="photo-url" for="photo-url">Photo URL</label>
@@ -42,16 +40,17 @@
             </div>
           </div>
         </div>
-        <div class="row pad-left-1 marg-top-2">
-          <label class="notes" for="notes">Notes</label>
-          <textarea name="notes" id="notes" cols="105" rows="10" required></textarea>
-        </div>
-        <div class="row end">
-          <button class="save color-purple" value="Save">SAVE</button>
+        <div class="column-full">
+          <div class="row pad-left-1 marg-top-2">
+            <label class="notes" for="notes">Notes</label>
+            <textarea name="notes" id="notes" cols="105" rows="10" required></textarea>
+          </div>
+          <div class="row end">
+            <button class="save color-purple" value="Save">SAVE</button>
+          </div>
         </div>
       </form>
     </div>
-
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

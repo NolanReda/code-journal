@@ -18,16 +18,6 @@
   width: 100%;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
-  header {
-    width: 100%;
-  }
-
-  .end {
-    padding: 0;
-  }
-}
-
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
@@ -44,16 +34,5 @@
 
   .column-half {
     width: 50%;
-  }
-}
-
-@media only screen and (max-width: 1000px) {
-  .img-box {
-    height: 15rem;
-    width: 15rem;
-  }
-
-  .shrink {
-    flex-basis: auto;
   }
 }

@@ -13,10 +13,6 @@ var data = {
 // var $imgBox = document.querySelector('#img-box');
 // var $save = document.querySelector('.save');
 
-// function renderEntry(entry) {
-//   var newDiv = document.createElement('div');
-// }
-
 var previousEntriesJSON = localStorage.getItem('journal');
 
 if (previousEntriesJSON !== null) {
