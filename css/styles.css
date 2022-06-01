@@ -7,7 +7,7 @@ body {
 
 header {
   height: 3.5rem;
-  padding: 0 2rem;
+  padding: 0 5rem;
 }
 
 h2 {
@@ -19,6 +19,7 @@ h2 {
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
   header {
     width: 100%;
+    padding: 0 1.5rem;
   }
 
   .end {
