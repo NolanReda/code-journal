@@ -18,7 +18,7 @@
 <body>
   <header class="row color-purple">
     <h2 class="code-journal-title white-text">Code Journal</h2>
-    <h3 class="white-text" id="entries" data-view="entries">Entries</h3>
+    <button class="white-text color-purple" id="entries" data-view="entries">Entries</button>
   </header>
   <main class="container">
     <div class="view" data-view="entry-form">
@@ -53,15 +53,14 @@
           </div>
         </div>
       </form>
-    </div><!--end of new entry-->
+    </div>
     <div class="view hidden" data-view="entries">
       <div class="row">
         <h1>Entries</h1>
         <button id="new" class="new color-purple" data-view="entry-form" value="new">NEW</button>
       </div>
-      <p id="p" class="view">No entries have been recorded</p>
       <ul></ul>
-    </div><!--end of view entries-->
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
