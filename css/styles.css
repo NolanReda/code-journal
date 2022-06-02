@@ -1,6 +1,4 @@
 body {
-  max-width: 1000px;
-  margin: auto;
   background-color: #f0f0f0;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -16,27 +14,8 @@ h2 {
   margin-bottom: 0;
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
-  header {
-    width: 100%;
-    padding: 0 1.5rem;
-  }
-
-  .end {
-    padding-right: 0;
-  }
-
-  .pad-top-1 {
-    padding-top: 1rem;
-  }
-}
-
 .img-box {
   width: 100%;
-}
-
-.notes {
-  margin-right: 17rem;
 }
 
 .marg-top-2 {
@@ -59,10 +38,6 @@ button {
 .pad-top-5 {
   padding-top: 5rem;
 }
-
-/* .marg-right-15 {
-  margin-right: 15rem;
-} */
 
 label {
   font-size: x-large;
@@ -87,4 +62,18 @@ textarea {
   border: solid 1px;
   border-color: #b6b6b6;
   border-radius: 4px;
+}
+
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
+  header {
+    padding: 0 1.5rem;
+  }
+
+  .end {
+    padding-right: 0;
+  }
+
+  .pad-top-1 {
+    padding-top: 1rem;
+  }
 }
