@@ -9,9 +9,17 @@ header {
 }
 
 h2 {
-  color: white;
-  padding-top: 15px;
   margin-bottom: 0;
+  margin-top: 10px;
+}
+
+h3 {
+  margin-top: 16px;
+  margin-left: 20px;
+}
+
+.white-text {
+  color: white;
 }
 
 .img-box {
@@ -64,6 +72,18 @@ textarea {
   border-radius: 4px;
 }
 
+.entry {
+  margin-bottom: 2rem;
+}
+
+ul {
+  list-style: none;
+}
+
+.new {
+  margin-left: 37rem;
+}
+
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
   header {
     padding: 0 1.5rem;
@@ -75,5 +95,9 @@ textarea {
 
   .pad-top-1 {
     padding-top: 1rem;
+  }
+
+  .new {
+    margin-left: 15rem;
   }
 }
