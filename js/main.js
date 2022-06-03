@@ -46,10 +46,15 @@ DOM model
         <img class="img-box" src="images/placeholder-image-square.jpg">
       </div>
       <div class="column-half">
-        <h2>title</h2>
-        <p class="entry-notes">
-          text content
-        </p>
+        <div class="row between">
+          <h2>title</h2>
+          <img class="edit-button" src="images/edit-3-32.png" alt="edit">
+        </div>
+        <div class="row">
+          <p class="entry-notes">
+            text content
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -58,6 +63,7 @@ DOM model
 
 function renderEntry(entry) {
   var li = document.createElement('li');
+  li.setAttribute('data-entry-id', entry.nextEntryId);
   var newEntry = document.createElement('div');
   newEntry.setAttribute('class', 'entry-container');
   li.appendChild(newEntry);
@@ -76,14 +82,26 @@ function renderEntry(entry) {
   var colHalf2 = document.createElement('div');
   colHalf2.setAttribute('class', 'column-half');
   entryRow.appendChild(colHalf2);
+
+  var row1 = document.createElement('div');
+  row1.setAttribute('class', 'row between');
+  colHalf2.appendChild(row1);
   var title = document.createElement('h2');
   var titleText = document.createTextNode(entry.title);
   title.appendChild(titleText);
-  colHalf2.appendChild(title);
+  row1.appendChild(title);
+  var editButton = document.createElement('img');
+  editButton.setAttribute('class', 'edit-button');
+  editButton.setAttribute('src', 'images/edit-3-32.png');
+  row1.appendChild(editButton);
+
+  var row2 = document.createElement('div');
+  row2.setAttribute('class', 'row');
+  colHalf2.appendChild(row2);
   var notes = document.createElement('p');
   var notesText = document.createTextNode(entry.notes);
   notes.appendChild(notesText);
-  colHalf2.appendChild(notes);
+  row2.appendChild(notes);
 
   return li;
 }
@@ -114,3 +132,23 @@ function switchView(event) {
 
 $entries.addEventListener('click', switchView);
 $new.addEventListener('click', switchView);
+
+// create a new HTML form for editable content
+// make it hidden and shown when clicking on an edit icon
+// insert the textcontent of each DOM element as the content into the HTML element
+// when completed, have content of HTML replace the content in the object at the right place in the entries array
+// switch back to the entries view tab
+
+// var $editTitle = document.querySelector('#edit-title');
+// var $editURLinput = document.querySelector('#edit-URL-input');
+// var $editNotes = document.querySelector('#edit-notes');
+var $editButton = document.querySelector('.edit-button');
+// var $saveEdit = document.querySelector('#save-edit');
+
+function handleEdit(event) {
+
+  // console.log('clicked');
+  view('edit');
+}
+
+$editButton.addEventListener('click', handleEdit);
