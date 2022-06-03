@@ -12,7 +12,18 @@ function changeSrc(event) {
 
 $urlInput.addEventListener('input', changeSrc);
 
+function view(viewName) {
+  for (let i = 0; i < $allView.length; i++) {
+    if ($allView[i].getAttribute('data-view') === viewName) {
+      $allView[i].className = 'view';
+    } else if ($allView[i].getAttribute('data-view') !== viewName) {
+      $allView[i].className = 'view hidden';
+    }
+  }
+}
+
 function handleSubmit(event) {
+  event.preventDefault();
   var newEntry = {};
   newEntry.image = $urlInput.value;
   newEntry.title = $title.value;
@@ -21,12 +32,13 @@ function handleSubmit(event) {
   data.entries.push(newEntry);
   data.nextEntryId++;
   $form.reset();
-
+  view('entries');
+  $ul.prepend(renderEntry(newEntry));
+  $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
-$form.addEventListener('submit', handleSubmit);
-
 /*
+DOM model
 <li>
   <div class="entry-container">
     <div class="row entry">
@@ -80,8 +92,10 @@ var $ul = document.querySelector('ul');
 
 for (let i = 0; i < data.entries.length; i++) {
   var entry = renderEntry(data.entries[i]);
-  $ul.appendChild(entry);
+  $ul.prepend(entry);
 }
+
+$form.addEventListener('submit', handleSubmit);
 
 var $allView = document.querySelectorAll('.view');
 var $entries = document.querySelector('#entries');
