@@ -113,16 +113,4 @@ function switchView(event) {
 }
 
 $entries.addEventListener('click', switchView);
-
-function switchNew(event) {
-  var $dataView = event.target.getAttribute('data-view');
-  for (let i = 0; i < $allView.length; i++) {
-    if ($allView[i].getAttribute('data-view') === event.target.getAttribute('data-view')) {
-      $allView[i].className = 'view';
-    } else if ($allView[i].getAttribute($dataView) !== event.target.$dataView) {
-      $allView[i].className = 'view hidden';
-    }
-  }
-}
-
-$new.addEventListener('click', switchNew);
+$new.addEventListener('click', switchView);
