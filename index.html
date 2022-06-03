@@ -16,11 +16,12 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header class="color-purple">
-    <h2 class="code-journal-title">Code Journal</h2>
+  <header class="row color-purple">
+    <h2 class="code-journal-title white-text">Code Journal</h2>
+    <button class="white-text color-purple" id="entries" data-view="entries">Entries</button>
   </header>
   <main class="container">
-    <div data-view="entry-form">
+    <div class="view" data-view="entry-form">
       <form class="new-entry">
         <div class="row">
           <div class="column-full">
@@ -52,6 +53,13 @@
           </div>
         </div>
       </form>
+    </div>
+    <div class="view hidden" data-view="entries">
+      <div class="row between">
+        <h1>Entries</h1>
+        <button id="new" class="new color-purple" data-view="entry-form" value="new">NEW</button>
+      </div>
+      <ul></ul>
     </div>
   </main>
   <script src="js/data.js"></script>
