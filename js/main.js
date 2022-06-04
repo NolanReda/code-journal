@@ -33,7 +33,7 @@ function handleSubmit(event) {
   data.nextEntryId++;
   $form.reset();
   view('entries');
-  $ul.prepend(renderEntry(newEntry));
+  $ul.appendChild(renderEntry(newEntry));
   $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
 
@@ -110,7 +110,7 @@ var $ul = document.querySelector('ul');
 
 for (let i = 0; i < data.entries.length; i++) {
   var entry = renderEntry(data.entries[i]);
-  $ul.prepend(entry);
+  $ul.appendChild(entry);
 }
 
 $form.addEventListener('submit', handleSubmit);
@@ -142,13 +142,19 @@ $new.addEventListener('click', switchView);
 // var $editTitle = document.querySelector('#edit-title');
 // var $editURLinput = document.querySelector('#edit-URL-input');
 // var $editNotes = document.querySelector('#edit-notes');
-var $editButton = document.querySelector('.edit-button');
+// var $editButton = document.querySelector('.edit-button');
 // var $saveEdit = document.querySelector('#save-edit');
+var $entryList = document.querySelector('#entry-list');
 
 function handleEdit(event) {
-
-  // console.log('clicked');
-  view('edit');
+  if (event.target.className === 'edit-button') {
+    for (let i = 1; i <= data.entries.length; i++) {
+      if (data.entries[i].nextEntryId === event.target.closest('data-entry-id')) {
+        data.editing = data.entries[i];
+      }
+    }
+    view('edit');
+  }
 }
 
-$editButton.addEventListener('click', handleEdit);
+$entryList.addEventListener('click', handleEdit);
