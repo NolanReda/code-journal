@@ -21,7 +21,7 @@
     <button class="white-text color-purple" id="entries" data-view="entries">Entries</button>
   </header>
   <main class="container">
-    <div class="view hidden" data-view="entry-form">
+    <div class="view" data-view="entry-form">
       <form class="new-entry">
         <div class="row">
           <div class="column-full">
@@ -61,7 +61,7 @@
       </div>
       <ul id="entry-list"></ul>
     </div><!--end of entry view-->
-    <div class="view" data-view="edit">
+    <div class="view hidden" data-view="edit">
       <form class="edit-entry">
         <div class="row">
           <div class="column-full">
@@ -89,7 +89,7 @@
             <textarea name="notes" id="edit-notes" cols="105" rows="10" required></textarea>
           </div>
           <div class="row end">
-            <button id="save-edit" class="save color-purple" value="Save">SAVE</button>
+            <button class="save color-purple" value="Save">SAVE</button>
           </div>
         </div>
       </form>

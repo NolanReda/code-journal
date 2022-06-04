@@ -28,7 +28,7 @@ function handleSubmit(event) {
   newEntry.image = $urlInput.value;
   newEntry.title = $title.value;
   newEntry.notes = $notes.value;
-  newEntry.nextEntryId = data.nextEntryId;
+  newEntry.entryId = data.nextEntryId;
   data.entries.push(newEntry);
   data.nextEntryId++;
   $form.reset();
@@ -63,7 +63,7 @@ DOM model
 
 function renderEntry(entry) {
   var li = document.createElement('li');
-  li.setAttribute('data-entry-id', entry.nextEntryId);
+  li.setAttribute('data-entry-id', entry.entryId);
   var newEntry = document.createElement('div');
   newEntry.setAttribute('class', 'entry-container');
   li.appendChild(newEntry);
@@ -139,22 +139,33 @@ $new.addEventListener('click', switchView);
 // when completed, have content of HTML replace the content in the object at the right place in the entries array
 // switch back to the entries view tab
 
-// var $editTitle = document.querySelector('#edit-title');
-// var $editURLinput = document.querySelector('#edit-URL-input');
-// var $editNotes = document.querySelector('#edit-notes');
+var $editTitle = document.querySelector('#edit-title');
+var $editURLinput = document.querySelector('#edit-URL-input');
+var $editNotes = document.querySelector('#edit-notes');
 // var $editButton = document.querySelector('.edit-button');
 // var $saveEdit = document.querySelector('#save-edit');
 var $entryList = document.querySelector('#entry-list');
+var $editBox = document.querySelector('#edit-box');
 
 function handleEdit(event) {
   if (event.target.className === 'edit-button') {
-    for (let i = 1; i <= data.entries.length; i++) {
-      if (data.entries[i].nextEntryId === event.target.closest('data-entry-id')) {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId.toString() === event.target.closest('li').getAttribute('data-entry-id')) {
         data.editing = data.entries[i];
       }
     }
+    $editURLinput.value = data.editing.image;
+    $editTitle.value = data.editing.title;
+    $editNotes.value = data.editing.notes;
+    $editBox.setAttribute('src', data.editing.image);
     view('edit');
   }
 }
 
 $entryList.addEventListener('click', handleEdit);
+
+function changeEditSrc(event) {
+  $editBox.src = $editURLinput.value;
+}
+
+$editURLinput.addEventListener('input', changeEditSrc);
