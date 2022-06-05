@@ -23,18 +23,35 @@ function view(viewName) {
 }
 
 function handleSubmit(event) {
-  event.preventDefault();
-  var newEntry = {};
-  newEntry.image = $urlInput.value;
-  newEntry.title = $title.value;
-  newEntry.notes = $notes.value;
-  newEntry.entryId = data.nextEntryId;
-  data.entries.push(newEntry);
-  data.nextEntryId++;
-  $form.reset();
-  view('entries');
-  $ul.appendChild(renderEntry(newEntry));
-  $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  if (data.editing === null) {
+    event.preventDefault();
+    var newEntry = {};
+    newEntry.image = $urlInput.value;
+    newEntry.title = $title.value;
+    newEntry.notes = $notes.value;
+    newEntry.entryId = data.nextEntryId;
+    data.entries.push(newEntry);
+    data.nextEntryId++;
+    $form.reset();
+    view('entries');
+    $ul.appendChild(renderEntry(newEntry));
+    $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  } else if (data.editing !== null) {
+    event.preventDefault();
+    data.editing.image = $urlInput.value;
+    data.editing.title = $title.value;
+    data.editing.notes = $notes.value;
+    for (let i = 0; i < $allEntries.length; i++) {
+      if ($allEntries[i].dataset.entryId === data.editing.entryId.toString()) {
+        $allEntries[i] = data.editing;
+        $allEntries[i].replaceWith(renderEntry(data.editing));
+      }
+    }
+    $form.reset();
+    view('entries');
+    data.editing = null;
+    $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
 }
 
 /*
@@ -128,6 +145,9 @@ function switchView(event) {
       $allView[i].className = 'view hidden';
     }
   }
+  if ($h1.innerHTML === 'Edit Entry') {
+    $h1.innerHTML = 'New Entry';
+  }
 }
 
 $entries.addEventListener('click', switchView);
@@ -139,13 +159,11 @@ $new.addEventListener('click', switchView);
 // when completed, have content of HTML replace the content in the object at the right place in the entries array
 // switch back to the entries view tab
 
-var $editTitle = document.querySelector('#edit-title');
-var $editURLinput = document.querySelector('#edit-URL-input');
-var $editNotes = document.querySelector('#edit-notes');
 // var $editButton = document.querySelector('.edit-button');
 // var $saveEdit = document.querySelector('#save-edit');
 var $entryList = document.querySelector('#entry-list');
-var $editBox = document.querySelector('#edit-box');
+var $allEntries = document.querySelectorAll('li');
+var $h1 = document.querySelector('h1');
 
 function handleEdit(event) {
   if (event.target.className === 'edit-button') {
@@ -154,18 +172,13 @@ function handleEdit(event) {
         data.editing = data.entries[i];
       }
     }
-    $editURLinput.value = data.editing.image;
-    $editTitle.value = data.editing.title;
-    $editNotes.value = data.editing.notes;
-    $editBox.setAttribute('src', data.editing.image);
-    view('edit');
+    $urlInput.value = data.editing.image;
+    $title.value = data.editing.title;
+    $notes.value = data.editing.notes;
+    $imgBox.setAttribute('src', data.editing.image);
+    $h1.innerHTML = 'Edit Entry';
+    view('entry-form');
   }
 }
 
 $entryList.addEventListener('click', handleEdit);
-
-function changeEditSrc(event) {
-  $editBox.src = $editURLinput.value;
-}
-
-$editURLinput.addEventListener('input', changeEditSrc);
