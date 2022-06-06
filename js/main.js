@@ -23,18 +23,35 @@ function view(viewName) {
 }
 
 function handleSubmit(event) {
-  event.preventDefault();
-  var newEntry = {};
-  newEntry.image = $urlInput.value;
-  newEntry.title = $title.value;
-  newEntry.notes = $notes.value;
-  newEntry.nextEntryId = data.nextEntryId;
-  data.entries.push(newEntry);
-  data.nextEntryId++;
-  $form.reset();
-  view('entries');
-  $ul.prepend(renderEntry(newEntry));
-  $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  if (data.editing === null) {
+    event.preventDefault();
+    var newEntry = {};
+    newEntry.image = $urlInput.value;
+    newEntry.title = $title.value;
+    newEntry.notes = $notes.value;
+    newEntry.entryId = data.nextEntryId;
+    data.entries.push(newEntry);
+    data.nextEntryId++;
+    $form.reset();
+    view('entries');
+    $ul.appendChild(renderEntry(newEntry));
+    $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  } else if (data.editing !== null) {
+    event.preventDefault();
+    data.editing.image = $urlInput.value;
+    data.editing.title = $title.value;
+    data.editing.notes = $notes.value;
+    for (let i = 0; i < $allEntries.length; i++) {
+      if ($allEntries[i].dataset.entryId === data.editing.entryId.toString()) {
+        $allEntries[i] = data.editing;
+        $allEntries[i].replaceWith(renderEntry(data.editing));
+      }
+    }
+    $form.reset();
+    view('entries');
+    data.editing = null;
+    $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
 }
 
 /*
@@ -46,10 +63,15 @@ DOM model
         <img class="img-box" src="images/placeholder-image-square.jpg">
       </div>
       <div class="column-half">
-        <h2>title</h2>
-        <p class="entry-notes">
-          text content
-        </p>
+        <div class="row between">
+          <h2>title</h2>
+          <img class="edit-button" src="images/edit-3-32.png" alt="edit">
+        </div>
+        <div class="row">
+          <p class="entry-notes">
+            text content
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -58,6 +80,7 @@ DOM model
 
 function renderEntry(entry) {
   var li = document.createElement('li');
+  li.setAttribute('data-entry-id', entry.entryId);
   var newEntry = document.createElement('div');
   newEntry.setAttribute('class', 'entry-container');
   li.appendChild(newEntry);
@@ -76,14 +99,26 @@ function renderEntry(entry) {
   var colHalf2 = document.createElement('div');
   colHalf2.setAttribute('class', 'column-half');
   entryRow.appendChild(colHalf2);
+
+  var row1 = document.createElement('div');
+  row1.setAttribute('class', 'row between');
+  colHalf2.appendChild(row1);
   var title = document.createElement('h2');
   var titleText = document.createTextNode(entry.title);
   title.appendChild(titleText);
-  colHalf2.appendChild(title);
+  row1.appendChild(title);
+  var editButton = document.createElement('img');
+  editButton.setAttribute('class', 'edit-button');
+  editButton.setAttribute('src', 'images/edit-3-32.png');
+  row1.appendChild(editButton);
+
+  var row2 = document.createElement('div');
+  row2.setAttribute('class', 'row');
+  colHalf2.appendChild(row2);
   var notes = document.createElement('p');
   var notesText = document.createTextNode(entry.notes);
   notes.appendChild(notesText);
-  colHalf2.appendChild(notes);
+  row2.appendChild(notes);
 
   return li;
 }
@@ -92,7 +127,7 @@ var $ul = document.querySelector('ul');
 
 for (let i = 0; i < data.entries.length; i++) {
   var entry = renderEntry(data.entries[i]);
-  $ul.prepend(entry);
+  $ul.appendChild(entry);
 }
 
 $form.addEventListener('submit', handleSubmit);
@@ -110,7 +145,40 @@ function switchView(event) {
       $allView[i].className = 'view hidden';
     }
   }
+  if ($h1.innerHTML === 'Edit Entry') {
+    $h1.innerHTML = 'New Entry';
+  }
 }
 
 $entries.addEventListener('click', switchView);
 $new.addEventListener('click', switchView);
+
+// create a new HTML form for editable content
+// make it hidden and shown when clicking on an edit icon
+// insert the textcontent of each DOM element as the content into the HTML element
+// when completed, have content of HTML replace the content in the object at the right place in the entries array
+// switch back to the entries view tab
+
+// var $editButton = document.querySelector('.edit-button');
+// var $saveEdit = document.querySelector('#save-edit');
+var $entryList = document.querySelector('#entry-list');
+var $allEntries = document.querySelectorAll('li');
+var $h1 = document.querySelector('h1');
+
+function handleEdit(event) {
+  if (event.target.className === 'edit-button') {
+    for (let i = 0; i < data.entries.length; i++) {
+      if (data.entries[i].entryId.toString() === event.target.closest('li').getAttribute('data-entry-id')) {
+        data.editing = data.entries[i];
+      }
+    }
+    $urlInput.value = data.editing.image;
+    $title.value = data.editing.title;
+    $notes.value = data.editing.notes;
+    $imgBox.setAttribute('src', data.editing.image);
+    $h1.innerHTML = 'Edit Entry';
+    view('entry-form');
+  }
+}
+
+$entryList.addEventListener('click', handleEdit);
