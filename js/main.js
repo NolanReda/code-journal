@@ -182,3 +182,13 @@ function handleEdit(event) {
 }
 
 $entryList.addEventListener('click', handleEdit);
+
+// var $modal = document.querySelector('#modal');
+
+// function open(event) {
+//   $modal.showModal()
+// }
+
+// function close(event) {
+//   $modal.close();
+// }
