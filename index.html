@@ -48,7 +48,8 @@
             <label class="notes" for="notes">Notes</label>
             <textarea name="notes" id="notes" cols="105" rows="10" required></textarea>
           </div>
-          <div class="row end">
+          <div id="buttons" class="row end">
+            <a id="modal-button" class="modal hidden">Delete Entry</a>
             <button class="save color-purple" value="Save">SAVE</button>
           </div>
         </div>
@@ -61,12 +62,16 @@
       </div>
       <ul id="entry-list"></ul>
     </div><!--end of entry view-->
-    <div class="modal">
+    <div class="modal-div">
       <dialog id="modal">
-        <form id="delete" method="dialog">
-          <p>Do you want to delete?</p>
-          <input class="delete" type="button" value="Delete">
-          <input class="no" type="button" value="No">
+        <form id="delete" method="dialog" class="modal-form">
+          <div class="row">
+            <p>Are you sure you want to delete this entry?</p>
+          </div>
+          <div class="row conf-canc">
+            <input class="delete" type="button" value="Confirm">
+            <input class="no" type="button" value="Cancel">
+          </div>
         </form>
       </dialog>
     </div>

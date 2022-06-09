@@ -147,23 +147,21 @@ function switchView(event) {
   }
   if ($h1.innerHTML === 'Edit Entry') {
     $h1.innerHTML = 'New Entry';
+    $buttons.setAttribute('class', 'row end');
+    $modalButton.setAttribute('class', 'modal hidden');
+    $form.reset();
+    data.editing = null;
+    $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
   }
 }
 
 $entries.addEventListener('click', switchView);
 $new.addEventListener('click', switchView);
 
-// create a new HTML form for editable content
-// make it hidden and shown when clicking on an edit icon
-// insert the textcontent of each DOM element as the content into the HTML element
-// when completed, have content of HTML replace the content in the object at the right place in the entries array
-// switch back to the entries view tab
-
-// var $editButton = document.querySelector('.edit-button');
-// var $saveEdit = document.querySelector('#save-edit');
 var $entryList = document.querySelector('#entry-list');
 var $allEntries = document.querySelectorAll('li');
 var $h1 = document.querySelector('h1');
+var $buttons = document.querySelector('#buttons');
 
 function handleEdit(event) {
   if (event.target.className === 'edit-button') {
@@ -177,18 +175,42 @@ function handleEdit(event) {
     $notes.value = data.editing.notes;
     $imgBox.setAttribute('src', data.editing.image);
     $h1.innerHTML = 'Edit Entry';
+    $buttons.setAttribute('class', 'row between');
+    $modalButton.setAttribute('class', 'modal');
     view('entry-form');
   }
 }
 
 $entryList.addEventListener('click', handleEdit);
 
-// var $modal = document.querySelector('#modal');
+var $modal = document.querySelector('#modal');
+var $modalButton = document.querySelector('#modal-button');
+var $noButton = document.querySelector('.no');
+var $confirmButton = document.querySelector('.delete');
 
-// function open(event) {
-//   $modal.showModal()
-// }
+function open(event) {
+  $modal.showModal();
+}
 
-// function close(event) {
-//   $modal.close();
-// }
+function close(event) {
+  $modal.close();
+}
+
+function handleDelete(event) {
+  if (data.editing !== null) {
+    for (let i = 0; i < $allEntries.length; i++) {
+      if ($allEntries[i].dataset.entryId === data.editing.entryId.toString()) {
+        $allEntries[i].remove();
+      }
+    }
+  }
+  view('entries');
+  close();
+  $form.reset();
+  data.editing = null;
+  $imgBox.setAttribute('src', 'images/placeholder-image-square.jpg');
+}
+
+$modalButton.addEventListener('click', open);
+$noButton.addEventListener('click', close);
+$confirmButton.addEventListener('click', handleDelete);
