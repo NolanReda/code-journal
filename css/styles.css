@@ -55,6 +55,15 @@ label {
 .end {
   justify-content: end;
   margin-bottom: 2rem;
+  padding-right: 0;
+  align-items: end;
+}
+
+.between {
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-right: 0;
+  align-items: end;
 }
 
 input {
@@ -84,20 +93,54 @@ ul {
   height: 1.5rem;
 }
 
+.modal {
+  color: red;
+  border-bottom: solid red 1.25px;
+  border-radius: 0%;
+}
+
+.modal-form {
+  height: 125px;
+  width: 305px;
+  border: none;
+  border-radius: 6px;
+}
+
+.delete {
+  font-size: larger;
+  color: white;
+  background-color: red;
+  width: 6rem;
+  border: none;
+}
+
+.no {
+  font-size: larger;
+  width: 6rem;
+  border: none;
+}
+
+.conf-canc {
+  justify-content: space-between;
+  align-items: end;
+  height: 75px;
+}
+
+#modal {
+  border: none;
+  border-radius: 6px;
+}
+
+dialog::backdrop {
+  background: rgb(0 0 0 / 80%);
+}
+
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) {
   header {
     padding: 0 1.5rem;
   }
 
-  .end {
-    padding-right: 0;
-  }
-
   .pad-top-1 {
     padding-top: 1rem;
   }
-}
-
-.between {
-  justify-content: space-between;
 }
